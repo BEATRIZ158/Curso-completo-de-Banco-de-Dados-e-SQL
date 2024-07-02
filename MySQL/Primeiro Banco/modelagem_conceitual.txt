@@ -1,0 +1,12 @@
+Sistema que armazene cliente.
+
+CLIENTE (Nome da tabela)
+
+Atributos:
+
+NOME
+CPF
+EMAIL
+TELEFONE
+ENDERECO
+SEXO
