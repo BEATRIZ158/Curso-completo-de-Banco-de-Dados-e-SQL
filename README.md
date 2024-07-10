@@ -1,4 +1,4 @@
-## 📌 Curso completo de Banco de Dados e SQL, sem mistérios!
+## 🤖 Curso completo de Banco de Dados e SQL, sem mistérios!
 
 Olá pessoal!
 Sou a Beatriz, estudante de ADS, e atualmente estou estudando banco de dados e SQL no quarto semestre do curso. Decidi então começar um curso extra, fora da grade, para ampliar meus conhecimentos nessa área.  
