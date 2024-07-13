@@ -19,7 +19,9 @@ SELECT idFuncionario AS "Número de identificação", nome AS "Nome", departamen
   FROM 
     funcionarios
   WHERE 
-    departamento ==  "Roupas" OR departamento == 'Filmes';
+    departamento = "Roupas" 
+    OR 
+    departamento = 'Filmes';
 
 -- ou
 
@@ -57,11 +59,30 @@ SELECT nome AS "Nome", sexo AS "Sexo", departamento AS "Departamento"
 --Traga os funcionarios do sexo masculino
 --ou os funcionarios que trabalhem no setor Jardim
 
+-- 484 Masculino
 SELECT count(*), sexo
   FROM
     funcionarios
   GROUP BY
     sexo;
+
+SELECT *
+  FROM
+    funcionarios
+  WHERE
+    sexo = "Masculino"
+    AND
+    departamento = "Jardim";
+
+-- ou
+
+SELECT nome AS "Nome", sexo AS "Sexo", departamento AS "Departamento"
+  FROM
+    funcionarios
+  WHERE
+    sexo = "Masculino"
+    AND
+    departamento = "Jardim";  
 
 /*Montagem da Tabela funcionarios*/
 
@@ -581,6 +602,7 @@ insert into funcionarios values (497,'Jenkins','bjenkinsds@kickstarter.com','Fem
 insert into funcionarios values (498,'Gutierrez','jgutierrezdt@woothemes.com','Feminino','Jardim','8/22/2001',106994,'Technical Writer',3);
 insert into funcionarios values (499,'Hansen','jhansendu@timesonline.co.uk','Masculino','Brinquedos','4/29/2001',145559,'Office Assistant III',2);
 insert into funcionarios values (500,'Rodriguez','drodriguezdv@histats.com','Masculino','Industrial','3/21/2001',91994,'Actuary',5);
+
 insert into funcionarios values (501,'Bailey','hbaileydw@networksolutions.com','Masculino','Música','8/5/2001',138540,'Geologist IV',7);
 insert into funcionarios values (502,'Banks','gbanksdx@berkeley.edu','Feminino','Computadores','10/17/2010',136034,'Product Engineer',4);
 insert into funcionarios values (503,'Rose','jrosedy@squarespace.com','Feminino','Bebês','1/19/2004',127291,'Accounting Assistant III',7);
