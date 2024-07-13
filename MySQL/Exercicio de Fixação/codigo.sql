@@ -11,9 +11,23 @@ SELECT COUNT(*) FROM FUNCIONARIOS;
 
 -- 21 | Filmes   53 | Roupas
 
+-- ORDER BY ordena em ordem crescente (padrão) pelo número da coluna
+
 --Como estamos trabalhando com OR e a segunda condicao é opcional
 --colocamos na primeira condicao quem tem mais chances de uma saida
 --verdadeira, pois a segunda condicao nao será checada nesse caso.
+
+SELECT COUNT(*), departamento
+FROM FUNCIONARIOS
+group by departamento;
+
+SELECT COUNT(*), departamento
+  FROM 
+    FUNCIONARIOS
+  GROUP BY 
+    departamento
+  ORDER BY 
+    1;
 
 SELECT idFuncionario AS "Número de identificação", nome AS "Nome", departamento AS "Departamento"
   FROM 
