@@ -9,16 +9,59 @@ SELECT COUNT(*) FROM FUNCIONARIOS;
 --no departamento de filmes OU no
 --departamento de roupas
 
+-- 21 | Filmes   53 | Roupas
+
 --Como estamos trabalhando com OR e a segunda condicao é opcional
 --colocamos na primeira condicao quem tem mais chances de uma saida
 --verdadeira, pois a segunda condicao nao será checada nesse caso.
+
+SELECT idFuncionario AS "Número de identificação", nome AS "Nome", departamento AS "Departamento"
+  FROM 
+    funcionarios
+  WHERE 
+    departamento ==  "Roupas" OR departamento == 'Filmes';
+
+-- ou
+
+select * from funcionarios
+where departamento = 'Roupas'
+or
+departamento = 'Filmes';
 
 --O gestor de marketing pediu a lista das funcionarias (AS) = FEMININO que trabalhem no departamento 
 --de filmes ou no departamento lar. Ele necessita enviar um email para as colaboradoras
 --desses dois setores. OR +  AND *
 
+--Feminino 491 ocorrencias
+SELECT count(*), sexo
+  FROM 
+    funcionarios
+  GROUP BY 
+    sexo;
+
+--52 | Lar  21 Filmes
+SELECT count(*), departamento
+  FROM 
+    funcionarios
+  GROUP BY
+    departamento;
+
+SELECT nome AS "Nome", sexo AS "Sexo", departamento AS "Departamento"
+  FROM 
+    funcionarios
+  WHERE 
+    ( departamento = 'Lar' AND sexo = 'Feminino' )
+    OR
+    ( departamento = 'Filmes' AND sexo = 'Feminino' );
+
 --Traga os funcionarios do sexo masculino
 --ou os funcionarios que trabalhem no setor Jardim
+
+SELECT count(*), sexo
+  FROM
+    funcionarios
+  GROUP BY
+    sexo;
 
 /*Montagem da Tabela funcionarios*/
 
@@ -27,17 +70,17 @@ create database exercicio;
 use exercicio;
 
 create table funcionarios
-  (
-      idFuncionario integer,
-      nome varchar(100),
-      email varchar(200),
-      sexo varchar(10),
-      departamento varchar(100),
-      admissao varchar(10),
-      salario integer,
-      cargo varchar(100),
-      idRegiao int
-  );
+(
+  idFuncionario integer,
+  nome varchar(100),
+  email varchar(200),
+  sexo varchar(10),
+  departamento varchar(100),
+  admissao varchar(10),
+  salario integer,
+  cargo varchar(100),
+  idRegiao int
+);
 
 insert into funcionarios values (1,'Kelley','rkelley0@soundcloud.com','Feminino','Computadores','10/2/2009',67470,'Structural Engineer',2);
 insert into funcionarios values (2,'Armstrong','sarmstrong1@infoseek.co.jp','Masculino','Esporte','3/31/2008',71869,'Financial Advisor',2);
