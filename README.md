@@ -2,7 +2,7 @@
 
 Olá pessoal!
 Sou a Beatriz, estudante de ADS, e atualmente estou estudando banco de dados e SQL no quarto semestre do curso. Decidi então começar um curso extra, fora da grade, para ampliar meus conhecimentos nessa área.  
-O "Curso completo de Banco de Dados e SQL, sem mistérios!" foi criado e ministrado ppor Felipe Mafra, e está disponível para compra na plataforma Udemy.  
+O "Curso completo de Banco de Dados e SQL, sem mistérios!" foi criado e ministrado por Felipe Mafra, e está disponível para compra na plataforma Udemy.  
 
 Nesse repositório vou estar adicionando todos os projetos e exercícios desenvolvidos ao longo do curso. 
 
