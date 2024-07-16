@@ -1,0 +1,25 @@
+/* ENTRANDO COM MAIS TELEFONES */
+
+UPDATE CLIENTE 
+SET TELEFONE = '97865434'
+WHERE NOME = 'JOAO';
+
+SELECT * FROM CLIENTE;
+
+/*ERRADO !!!*/
+UPDATE CLIENTE 
+SET TELEFONE = '22923110 - 97865434'
+WHERE NOME = 'JOAO';
+
+SELECT * FROM CLIENTE;
+
+SELECT SEXO, COUNT(*) FROM CLIENTE
+GROUP BY SEXO;
+
+/*Me retorna que apenas 1 pessoa mora em cada lugar, o campo está vetorizado,
+o banco interpreta como se fosse uma coisa só
+
+Modelagem Errada!
+*/
+SELECT ENDERECO, COUNT(*) FROM CLIENTE
+GROUP BY ENDERECO;
