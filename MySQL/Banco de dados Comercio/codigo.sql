@@ -71,7 +71,40 @@ INSERT INTO CLIENTE(IDCLIENTE, NOME, SEXO, EMAIL, CPF) VALUES(NULL,'CLARA','F',N
 INSERT INTO CLIENTE(IDCLIENTE, NOME, SEXO, EMAIL, CPF) VALUES(NULL,'JORGE','M','JORGE@IG.COM','8756547688');
 INSERT INTO CLIENTE(IDCLIENTE, NOME, SEXO, EMAIL, CPF) VALUES(NULL,'CELIA','M','JCELIA@IG.COM','5767876889');
 
-SELECT * FROM;
+SELECT * FROM CLIENTE;
+
++-----------+--------+------+----------------+-------------+
+| IDCLIENTE | NOME   | SEXO | EMAIL          | CPF         |
++-----------+--------+------+----------------+-------------+
+|         1 | JOAO   | M    | JOAOA@IG.COM   | 76567587887 |
+|         2 | CARLOS | M    | CARLOSA@IG.COM | 5464553466  |
+|         3 | ANA    | F    | ANA@IG.COM     | 456545678   |
+|         4 | CLARA  | F    | NULL           | 5687766856  |
+|         5 | JORGE  | M    | JORGE@IG.COM   | 8756547688  |
+|         6 | CELIA  | M    | JCELIA@IG.COM  | 5767876889  |
++-----------+--------+------+----------------+-------------+
 
 /*Descreve os tipos das colunas*/
 DESC CLIENTE;
+
+/*Inserções em Relacionamentos 1 X 1*/
+INSERT INTO ENDERECO VALUES(NULL,'RUA ANTÔNIO SA','CENTRO','BELO HORIZONTE', 'MG', 4);
+INSERT INTO ENDERECO VALUES(NULL,'RUA CAPITAO HERMES','CENTRO','RIO DE JANEIRO','RJ',1);
+INSERT INTO ENDERECO VALUES(NULL,'RUA PRES VARGAS','JARDINS','SAO PAULO','SP',3);
+INSERT INTO ENDERECO VALUES(NULL,'RUA ALFANDEGA','ESTACIO','RIO DE JANEIRO','RJ',2);
+INSERT INTO ENDERECO VALUES(NULL,'RUA DO OUVIDOR','FLAMENGO','RIO DE JANEIRO','RJ',6);
+INSERT INTO ENDERECO VALUES(NULL,'RUA URUGUAIANA','CENTRO','VITORIA','ES',5);
+
+SELECT * FROM ENDERECO;
+
++------------+--------------------+----------+----------------+--------+------------+
+| IDENDERECO | RUA                | BAIRRO   | CIDADE         | ESTADO | ID_CLIENTE |
++------------+--------------------+----------+----------------+--------+------------+
+|          1 | RUA ANTÔNIO SA     | CENTRO   | BELO HORIZONTE | MG     |          4 |
+|          2 | RUA CAPITAO HERMES | CENTRO   | RIO DE JANEIRO | RJ     |          1 |
+|          3 | RUA PRES VARGAS    | JARDINS  | SAO PAULO      | SP     |          3 |
+|          4 | RUA ALFANDEGA      | ESTACIO  | RIO DE JANEIRO | RJ     |          2 |
+|          5 | RUA DO OUVIDOR     | FLAMENGO | RIO DE JANEIRO | RJ     |          6 |
+|          6 | RUA URUGUAIANA     | CENTRO   | VITORIA        | ES     |          5 |
++------------+--------------------+----------+----------------+--------+------------+
+
