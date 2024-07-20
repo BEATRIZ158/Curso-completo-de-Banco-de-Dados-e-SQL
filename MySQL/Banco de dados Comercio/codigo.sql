@@ -108,3 +108,33 @@ SELECT * FROM ENDERECO;
 |          6 | RUA URUGUAIANA     | CENTRO   | VITORIA        | ES     |          5 |
 +------------+--------------------+----------+----------------+--------+------------+
 
+DESC TELEFONE;
+
+INSERT INTO TELEFONE VALUES(NULL,'CEL','78458743',5);
+INSERT INTO TELEFONE VALUES(NULL,'RES','56576876',5);
+INSERT INTO TELEFONE VALUES(NULL,'CEL','87866896',1);
+INSERT INTO TELEFONE VALUES(NULL,'COM','54768899',2);
+INSERT INTO TELEFONE VALUES(NULL,'RES','99667587',1);
+INSERT INTO TELEFONE VALUES(NULL,'CEL','78989765',3);
+INSERT INTO TELEFONE VALUES(NULL,'CEL','99766676',3);
+INSERT INTO TELEFONE VALUES(NULL,'COM','66687899',1);
+INSERT INTO TELEFONE VALUES(NULL,'RES','89986668',5);
+INSERT INTO TELEFONE VALUES(NULL,'CEL','88687909',2);
+
+SELECT * FROM TELEFONE;
+
++------------+------+----------+------------+
+| IDTELEFONE | TIPO | NUMERO   | ID_CLIENTE |
++------------+------+----------+------------+
+|          1 | CEL  | 78458743 |          5 |
+|          2 | RES  | 56576876 |          5 |
+|          3 | CEL  | 87866896 |          1 |
+|          4 | COM  | 54768899 |          2 |
+|          5 | RES  | 99667587 |          1 |
+|          6 | CEL  | 78989765 |          3 |
+|          7 | CEL  | 99766676 |          3 |
+|          8 | COM  | 66687899 |          1 |
+|          9 | RES  | 89986668 |          5 |
+|         10 | CEL  | 88687909 |          2 |
++------------+------+----------+------------+
+
