@@ -122,7 +122,7 @@ INSERT INTO TELEFONE VALUES(NULL,'RES','89986668',5);
 INSERT INTO TELEFONE VALUES(NULL,'CEL','88687909',2);
 
 SELECT * FROM TELEFONE;
-
+/*Nessa tabela, na coluna ID_CLIENTE os valores se repetem, relacioanmento 1 X N*/
 +------------+------+----------+------------+
 | IDTELEFONE | TIPO | NUMERO   | ID_CLIENTE |
 +------------+------+----------+------------+
@@ -137,4 +137,3 @@ SELECT * FROM TELEFONE;
 |          9 | RES  | 89986668 |          5 |
 |         10 | CEL  | 88687909 |          2 |
 +------------+------+----------+------------+
-
