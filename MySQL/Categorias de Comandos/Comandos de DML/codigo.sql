@@ -1,0 +1,37 @@
+/*SQL é uma linguagem de quarta geração, é muito parecida com a linguagem humana.
+é dividida em categorias
+	DML - DATA MANIPULATION LANGUAGE - Manipulação De Dados
+	DDL - DATA DEFINITION LANGUAGE - Definição/tipagem dos dados
+	DCL - DATA CONTROL LANGUAGE - Controle de Acesso aos dados
+	TCL - TRANSACTION CONTROL LANGUAGE - Controle de transação, passa pela atomicidade
+*/
+
+/* INSERT */
+
+INSERT INTO CLIENTE VALUES(NULL,'PAULA','M',NULL,'77437493');
+INSERT INTO ENDERECO VALUES(NULL,'RUA JOAQUIM SILVA','ALVORADA','NITEROI','RJ',7);
+
+SELECT * FROM CLIENTE;
+
+/* FILTROS */
+
+SELECT * FROM CLIENTE
+WHERE SEXO = 'M';
+
+/* UPDATE */
+
+SELECT * FROM CLIENTE
+WHERE IDCLIENTE = 7;
+
+UPDATE CLIENTE
+SET SEXO = 'F'
+WHERE IDCLIENTE = 7;
+
+/* DELETE */ 
+
+INSERT INTO CLIENTE VALUES(NULL,'XXX','M',NULL,'XXX');
+
+SELECT * FROM CLIENTE
+WHERE IDCLIENTE = 9;
+
+DELETE FROM CLIENTE WHERE IDCLIENTE = 9;

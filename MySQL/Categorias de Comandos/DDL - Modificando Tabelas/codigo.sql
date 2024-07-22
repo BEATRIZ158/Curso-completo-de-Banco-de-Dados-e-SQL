@@ -1,0 +1,4 @@
+/* 
+  DDL - DATA DEFINITION LANGUAGE
+*/
+
