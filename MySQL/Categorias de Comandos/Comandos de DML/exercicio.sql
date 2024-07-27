@@ -55,15 +55,43 @@ INSERT INTO TELEFONE VALUES(NULL,'COM','44522578',20);
 
 /*Exercícios*/
 
-/* RELATORIO GERAL DE TODOS OS CLIENTES */
-
-SELECT IDCLIENTE AS 'ID do Cliente', NOME AS 'Nome do Cliente', SEXO AS 'Sexo do Cliente', EMAIL AS 'Email do Cliente', CPF AS 'CPF do Cliente'
-FROM CLIENTE;
-
 /* RELATORIO GERAL DE TODOS OS CLIENTES (TELEFONE E ENDERECO) */
-SELECT C.IDCLIENTE, C.NOME, C.SEXO, C.EMAIL, 
-    E.RUA, E.BAIRRO, E.CIDADE, E.ESTADO, 
-    T.TIPO, T.NUMERO
+/*Me retorna: Nome da coluna, o tipo do dado, se aceita nulo ou não, se é cahve primaria ou extrangeira e extra*/
+DESC CLIENTE;
+DESC ENDERECO;
+DESC TELEFONE;
+
++-----------+---------------+------+-----+---------+----------------+
+| Field     | Type          | Null | Key | Default | Extra          |
++-----------+---------------+------+-----+---------+----------------+
+| IDCLIENTE | int(11)       | NO   | PRI | NULL    | auto_increment |
+| NOME      | varchar(30)   | NO   |     | NULL    |                |
+| SEXO      | enum('M','F') | NO   |     | NULL    |                |
+| EMAIL     | varchar(50)   | YES  | UNI | NULL    |                |
+| CPF       | varchar(15)   | YES  | UNI | NULL    |                |
++-----------+---------------+------+-----+---------+----------------+
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| IDENDERECO | int(11)     | NO   | PRI | NULL    | auto_increment |
+| RUA        | varchar(30) | NO   |     | NULL    |                |
+| BAIRRO     | varchar(30) | NO   |     | NULL    |                |
+| CIDADE     | varchar(30) | NO   |     | NULL    |                |
+| ESTADO     | char(2)     | NO   |     | NULL    |                |
+| ID_CLIENTE | int(11)     | YES  | UNI | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
++------------+-------------------------+------+-----+---------+----------------+
+| Field      | Type                    | Null | Key | Default | Extra          |
++------------+-------------------------+------+-----+---------+----------------+
+| IDTELEFONE | int(11)                 | NO   | PRI | NULL    | auto_increment |
+| TIPO       | enum('RES','COM','CEL') | NO   |     | NULL    |                |
+| NUMERO     | varchar(10)             | NO   |     | NULL    |                |
+| ID_CLIENTE | int(11)                 | YES  | MUL | NULL    |                |
++------------+-------------------------+------+-----+---------+----------------+
+
+SELECT  C.IDCLIENTE, C.NOME, C.SEXO, C.EMAIL, C.CPF,
+        E.RUA, E.BAIRRO, E.CIDADE, E.ESTADO, 
+        T.TIPO, T.NUMERO
 FROM CLIENTE C 
 INNER JOIN ENDERECO E
 ON C.IDCLIENTE = E.ID_CLIENTE
@@ -72,13 +100,15 @@ ON C.IDCLIENTE = T.ID_CLIENTE;
 
 /* RELATORIO DE HOMENS */
 
-SELECT C.IDCLIENTE, C.NOME, C.SEXO, C.EMAIL, E.RUA, E.BAIRRO, E.CIDADE, E.ESTADO, T.NUMERO
+SELECT  C.IDCLIENTE, C.NOME, C.SEXO, C.EMAIL, C.CPF,
+        E.RUA, E.BAIRRO, E.CIDADE, E.ESTADO, 
+        T.TIPO, T.NUMERO
 FROM CLIENTE C 
 INNER JOIN ENDERECO E
 ON C.IDCLIENTE = E.ID_CLIENTE
 INNER JOIN TELEFONE T
 ON C.IDCLIENTE = T.ID_CLIENTE
-WHERE C.SEXO = 'M';
+WHERE SEXO = 'M';
 
 /* 12 13 18 19  */
 
@@ -90,14 +120,16 @@ OR IDCLIENTE = 17
 OR IDCLIENTE = 19;
 
 SELECT * FROM CLIENTE
-WHERE IDCLIENTE IN (12,13,18,17,19);
+WHERE IDCLIENTE IN (12,13,17,18,19); /*Passa os IDs*/ 
 
 UPDATE CLIENTE SET SEXO = 'F'
-WHERE IDCLIENTE IN (12,13,18,17,19);
+WHERE IDCLIENTE IN (12,13,17,18,19);
 
 /* RELATORIO DE MULHERES */
 
-SELECT C.IDCLIENTE, C.NOME, C.SEXO, C.EMAIL, E.RUA, E.BAIRRO, E.CIDADE, E.ESTADO, T.NUMERO
+SELECT  C.IDCLIENTE, C.NOME, C.SEXO, C.EMAIL, C.CPF,
+        E.RUA, E.BAIRRO, E.CIDADE, E.ESTADO, 
+        T.TIPO, T.NUMERO
 FROM CLIENTE C 
 INNER JOIN ENDERECO E
 ON C.IDCLIENTE = E.ID_CLIENTE
@@ -116,23 +148,23 @@ GROUP BY SEXO; /*Organizar por SEXO*/
 /* IDS E EMAIL DAS MULHERES QUE MOREM NO CENTRO DO RIO DE JANEIRO E 
 NAO TENHAM CELULAR */
 
-SELECT C.IDCLIENTE, C.NOME,
-    E.BAIRRO, E.CIDADE, E.ESTADO,
-    T.NUMERO, T.TIPO
-FROM CLIENTE C 
-INNER JOIN ENDERECO E
-ON C.IDCLIENTE = E.ID_CLIENTE
-INNER JOIN TELEFONE T 
-ON C.IDCLIENTE = T.ID_CLIENTE
+SELECT  C.IDCLIENTE, C.NOME, C.SEXO,
+        E.BAIRRO, E.CIDADE,
+        T.TIPO, T.NUMERO /*Projeção*/
+FROM CLIENTE C /* ORIGEM */
+INNER JOIN ENDERECO E /*JUNCAO */
+ON C.IDCLIENTE = E.ID_CLIENTE /*JUNCAO CONDICAO */
+INNER JOIN TELEFONE T /*JUNCAO */
+ON C.IDCLIENTE = T.ID_CLIENTE /*JUNCAO CONDICAO */
 WHERE SEXO = 'F'
 AND BAIRRO = 'CENTRO' AND CIDADE = 'RIO DE JANEIRO'
-AND (TIPO = 'RES' OR TIPO = 'COM');
+AND (TIPO = 'RES' OR TIPO = 'COM'); /*Regra de precedência, encapsula a condição*/
 
 /*OU */
 
-SELECT C.IDCLIENTE, C.NOME,
-    E.BAIRRO, E.CIDADE, E.ESTADO,
-    T.NUMERO, T.TIPO
+SELECT  C.IDCLIENTE, C.NOME, C.SEXO,
+        E.BAIRRO, E.CIDADE, 
+        T.TIPO, T.NUMERO
 FROM CLIENTE C 
 INNER JOIN ENDERECO E
 ON C.IDCLIENTE = E.ID_CLIENTE
@@ -141,3 +173,32 @@ ON C.IDCLIENTE = T.ID_CLIENTE
 WHERE SEXO = 'F'
 AND BAIRRO = 'CENTRO' AND CIDADE = 'RIO DE JANEIRO'
 AND TIPO != 'CEL';
+
+/* PARA UMA CAMPANHA DE MARKETING, O SETOR SOLICITOU UM
+RELATÓRIO COM O NOME, EMAIL E TELEFONE CELULAR 
+DOS CLIENTES QUE MORAM NO ESTADO DO RIO DE JANEIRO 
+VOCÊ TERÁ QUE PASSAR A QUERY PARA GERAR O RELATORIO PARA
+O PROGRAMADOR */
+
+SELECT   C.NOME, C.EMAIL, T.NUMERO AS CELULAR /* PROJECAO */
+FROM CLIENTE C /* ORIGEM */
+INNER JOIN ENDERECO E /*JUNCAO */
+ON C.IDCLIENTE = E.ID_CLIENTE /*JUNCAO CONDICAO */
+INNER JOIN TELEFONE T /*JUNCAO */
+ON C.IDCLIENTE = T.ID_CLIENTE /*JUNCAO CONDICAO*/
+WHERE TIPO = 'CEL' AND ESTADO = 'RJ'; /*SELECAO*/
+
+/* PARA UMA CAMPANHA DE PRODUTOS DE BELEZA, O COMERCIAL SOLICITOU UM
+RELATÓRIO COM O NOME, EMAIL E TELEFONE CELULAR 
+ DAS MULHERES QUE MORAM NO ESTADO DE SÃO PAULO 
+VOCÊ TERÁ QUE PASSAR A QUERY PARA GERAR O RELATORIO PARA
+O PROGRAMADOR */
+
+SELECT C.NOME, C.EMAIL, T.NUMERO AS CELULAR
+FROM CLIENTE C
+INNER JOIN ENDERECO E
+ON C.IDCLIENTE = E.ID_CLIENTE
+INNER JOIN TELEFONE T
+ON C.IDCLIENTE = T.ID_CLIENTE
+WHERE SEXO = 'F'
+AND ESTADO = 'SP';
