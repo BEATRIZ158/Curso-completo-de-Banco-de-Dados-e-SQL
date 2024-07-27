@@ -22,6 +22,27 @@ CREATE TABLE CLIENTE(
     CPF VARCHAR(15) UNIQUE
 );
 
+/*Exercícios*/
+
+/* RELATORIO GERAL DE TODOS OS CLIENTES */
+
+SELECT NOME AS 'Nome do Cliente', SEXO AS 'Sexo do Cliente', EMAIL AS 'Email do Cliente', CPF AS 'CPF do Cliente'
+FROM CLIENTE;
+
+/* RELATORIO GERAL DE TODOS OS CLIENTES (TELEFONE E ENDERECO) */
+
+SELECT NOME AS 'Nome do Cliente', SEXO AS 'Sexo do Cliente', EMAIL AS 'Email do Cliente', CPF AS 'CPF do Cliente'
+FROM CLIENTE;
+
+/* RELATORIO DE HOMENS */
+
+/* RELATORIO DE MULHERES */
+
+/* QUANTIDADE DE HOMENS E MULHERES */
+
+/* IDS E EMAIL DAS MULHERES QUE MOREM NO CENTRO DO RIO DE JANEIRO E 
+NAO TENHAM CELULAR */
+
 /*Visualizar todas as tabelas criadas no Banco*/
 SHOW TABLES;
 
