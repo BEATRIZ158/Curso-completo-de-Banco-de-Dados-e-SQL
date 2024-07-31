@@ -1,0 +1,69 @@
+/* STORED PROCEDURES - Procedimentos Armazenados - Blocos de programação armazenados*/
+
+SELECT 'MAFRA';
+
+DELIMITER $
+
+/*Criando Procedure chamada NOME*/
+
+CREATE PROCEDURE NOME()
+BEGIN
+
+	QUALQUER PROGRAMACAO;
+
+END
+$
+
+/*Procedure SEM PARAMETRO - Chamamos ela, e não passamos nada, ela apenas executa o que tem dentro do bloco*/
+CREATE PROCEDURE NOME_EMPRESA()
+BEGIN
+	
+	SELECT 'UNIVERSIDADE DOS DADOS' AS EMPRESA;
+
+END
+$
+
+/* CHAMANDO UMA PROCEDURE */
+
+CALL NOME_EMPRESA()$
+
+DELIMITER ;
+
+CALL NOME_EMPRESA();
+
+/* PROCEDURES COM PARAMETROS */
+
+SELECT 10 + 10 AS CONTA; /*Projeção*/
+
+DELIMITER $
+
+CREATE PROCEDURE CONTA()
+BEGIN
+	
+	SELECT 10 + 10 AS CONTA;
+
+END
+$
+
+DELIMITER ;
+CALL CONTA();
+
+/*Apagando PROCEDURE*/
+DROP PROCEDURE CONTA;
+
+
+DELIMITER $
+/*Parametros é o nome dado as variáveis que vão receber os argumentos*/
+CREATE PROCEDURE CONTA(NUMERO1 INT, NUMERO2 INT)
+BEGIN
+	
+	SELECT NUMERO1 + NUMERO2 AS CONTA;
+
+END
+$
+
+/*Passando Argumentos*/
+CALL CONTA(100,50)$
+CALL CONTA(345634,4354)$
+CALL CONTA(55654,56760)$
+CALL CONTA(45646,6766)$
