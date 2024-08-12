@@ -41,10 +41,11 @@ CREATE TABLE COR(
 	COR VARCHAR(30) UNIQUE
 );
 
+/*Tabela Associativa Carro / Cor*/
 CREATE TABLE CARRO_COR(
 	ID_CARRO INT,
 	ID_COR INT,
-	PRIMARY KEY(ID_CARRO,ID_COR)
+	PRIMARY KEY(ID_CARRO,ID_COR) /*Essa chave primária é a união entre os dois campos*/
 );
 
 /* CONSTRAINTS */
