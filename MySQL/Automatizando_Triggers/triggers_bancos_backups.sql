@@ -154,3 +154,39 @@ SELECT * FROM BACKUP.BKP_PRODUTO;
 |     6 |         2 | LIVRO BI         |  80.00 |
 |     7 |         5 | LIVRO C#         | 100.00 |
 +-------+-----------+------------------+--------+
+
+ALTER TABLE BACKUP.BKP_PRODUTO
+ADD EVENTO CHAR(1);
+
+DROP TRIGGER BACKUP_PRODUTO_DEL;
+
+DELIMITER $
+
+CREATE TRIGGER BACKUP_PRODUTO_DEL
+BEFORE DELETE ON PRODUTO
+FOR EACH ROW
+BEGIN
+	
+	INSERT INTO BACKUP.BKP_PRODUTO VALUES(NULL,OLD.IDPRODUTO,
+	OLD.NOME,OLD.VALOR,'D');
+
+END
+$
+
+DELIMITER ;
+
+DELETE FROM PRODUTO WHERE IDPRODUTO = 4;
+
+SELECT * FROM BACKUP.BKP_PRODUTO;
++-------+-----------+------------------+--------+--------+
+| IDBKP | IDPRODUTO | NOME             | VALOR  | EVENTO |
++-------+-----------+------------------+--------+--------+
+|     1 |      1000 | TESTE            |   0.00 | NULL   |
+|     2 |         0 | LIVRO MODELAGEM  |  50.00 | NULL   |
+|     3 |         0 | LIVRO BI         |  80.00 | NULL   |
+|     4 |         0 | LIVRO ORACLE     |  70.00 | NULL   |
+|     5 |         0 | LIVRO SQL SERVER | 100.00 | NULL   |
+|     6 |         2 | LIVRO BI         |  80.00 | NULL   |
+|     7 |         5 | LIVRO C#         | 100.00 | NULL   |
+|     8 |         4 | LIVRO SQL SERVER | 100.00 | D      |
++-------+-----------+------------------+--------+--------+
