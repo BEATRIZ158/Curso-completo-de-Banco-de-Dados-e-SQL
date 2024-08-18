@@ -1,0 +1,22 @@
+Bancos
+
+Banco de Dados
+    Banco de Dados Do Sistema
+        master -> Todas as informações dos bancos de dados
+        
+        model  -> Model de modelo, todo a tabela criada dentro da model é usado
+        como base para a criação de outras tabelas em outros bancos, esse
+        banco é somente um modelo e só é utilizado na hora da criação.
+        
+        msdb   -> Dentro desse banco estão os agendamentos de backup, cópia de dados,
+        de rotina. Todos os dados desses serviços são armazenados aqui. Os dados do Integration Services, que é a ferramenta
+        de extração e transformação de carga de dados.
+
+        tempdb -> É um banco temporário, cada vez que eu crio uma seção ou fecho uma seção todo o que 
+        tem no tempdb é apagado. É possível criar tabelas dentro da base tempdb.
+
+    ReportServer e ReportServerTempdb -> São bancos de dados de relatórios, através das tabelas é possível criar relatórios formatados
+    com cabeçalho, título, datas, totais, linhas e colunas. O SQL Server tem um servidor de relatórios nativos, os relatórios ficam armazenados
+    no banco ReportServer.
+    Enquanto o ReportServerTempdb, é usado para compartilhar o uso do servidor de relatórios com o ReportServer.
+
