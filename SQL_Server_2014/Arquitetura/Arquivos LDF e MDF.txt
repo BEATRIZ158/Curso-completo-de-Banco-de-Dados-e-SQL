@@ -1,0 +1,37 @@
+Arquitetura é como se comportam os arquivos que compoem esse banco de dados
+
+Etapas:
+- Clicar com o botão direito sobre qualquer banco
+- Entrar em Propriedades
+- Arquivos
+
+Quanto se tem o Sisitema Operacional, o SQL Server e os Bancos (Com os arquivos)
+mesmo HD/SSD o Sisitema Operacional vai estar concorrendo com os arquivos de dados.
+O HD Sata é uma agulha que fica lendo o disco, isso reduz a velocidade de gravação ou
+leitura de dados por conta dassa disputa com o SO.
+O recomendado é separar.
+
+MDF -> Master Data File (Arquivo Master de Dados)
+Armazena Dados
+
+LDF -> Log Data File
+Armazena Logs
+
+Quando criamos um banco de dados padrão, ou seja sem mecher nas 
+configuração, ele cria por padrão o MDF e LDF, sempre(Default)!
+Transação é o que ocorre quando entro com dado na tabela, o banco
+escreve tudo dentro do arquivo LDF, para caso precise possa tetornar
+a transação do zero novamente, isso é feito a partir de comandos.
+
+BEGIN
+
+COMMIT
+
+Se ocorrer um erro, é possível voltar ao ínicio. Apartir do comento
+que o COMMIT é executado, o LDF é limpo e salva no MDF.
+Agora se chegar ao fim e colocar ROOLBACK, ele apenas apaga do LDF e
+não é possível ver na tabela.
+
+A microsoft aconselha que deixe o MDF apenas para o dicionário de dados.
+É possível criar grupos e armazenar, posso indicar a tabela a que grupo
+ela vai pertencer.
