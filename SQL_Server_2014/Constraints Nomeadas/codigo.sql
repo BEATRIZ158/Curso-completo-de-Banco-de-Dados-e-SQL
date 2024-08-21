@@ -1,0 +1,69 @@
+/* CONECTANDO A UM BANCO */
+
+USE EMPRESA 
+GO
+
+/* CRIAÇÃO DE TABELAS 
+
+IDENTITY(1,1) ou IDENTITY é a mesma coisa
+Ele vai começar em 1 e vai incrementar de 1 em 1*/
+CREATE TABLE ALUNO(
+    IDALUNO INT PRIMARY KEY IDENTITY(1, 1),
+    NOME VARCHAR(30) NOT NULL,
+    SEXO CHAR(1) NOT NULL,
+    NASCIMENTO DATE NOT NULL,
+    EMAIL VARCHAR(30) UNIQUE
+)
+GO
+
+/* CONSTRAINTS
+Altere a tabela aluno
+Adicione uma constraint(regra) chamada CK_SEXO que checa a Coluna SEXO se M ou F*/
+ 
+ALTER TABLE ALUNO
+ADD CONSTRAINT CK_SEXO CHECK (SEXO IN('M','F'))
+GO
+
+/* 1 X 1 */
+
+CREATE TABLE ENDERECO(
+    IDENDERECO INT PRIMARY KEY IDENTITY(100, 10),
+    BAIRRO VARCHAR(30),
+    UF CHAR(2) NOT NULL,
+    CHECK (UF IN('RJ', 'SP', 'MG')),
+    ID_ALUNO INT UNIQUE
+)
+GO
+
+/* CRIANDO A FK
+Alterando a Tabela ENDERECO, Adicionando uma Constraint chamada FK_ENDERECO_ALUNO
+Que é uma FOREIGN KEY que é ID_ALUNO na Tabela ENDERECO, que faz Referencia a IDALUNO da tabela ALUNO 
+*/
+
+ALTER TABLE ENDERECO ADD CONSTRAINT FK_ENDERECO_ALUNO
+FOREIGN KEY(ID_ALUNO) REFERENCES ALUNO(IDALUNO)
+GO
+
+/* COMANDOS DE DESCRIÇÃO 
+No MySQL tinhamos DESC, SHOW TABLES
+NO SQL Server isso tudo funciona com 
+PROCEDURES - Já Criadas e Armazenadas no Sistema
+*/
+
+/* Traz um DESC mais detalhado */
+SP_COLUMNS ALUNO
+GO
+
+/* Ainda mais detalhada */
+SP_HELP ALUNO
+GO
+
+/* INSERINDO DADOS */
+INSERT INTO ALUNO VALUES('ANDRE', 'M', '1981/12/09','ANDRE@IG.COM')
+INSERT INTO ALUNO VALUES('ANA', 'F', '1978/03/09','ANA@IG.COM')
+INSERT INTO ALUNO VALUES('RUI', 'M', '1951/07/09','RUI@IG.COM')
+INSERT INTO ALUNO VALUES('JOAO', 'M', '2008/12/09','JOAO@IG.COM')
+GO
+
+SELECT * FROM ALUNO
+GO
