@@ -1,0 +1,14 @@
+Os dados podem ser armazenados em diferentes grupos de arquivos
+o que facilita a organização e o gerenciamento dos dados. Um 
+Grupo de Arquivos (Filegroup) é uma coleção lógica de arquivos 
+de dados (MDF ou NDF - arquivos de dados secundários) que permite distribuir 
+o armazenamento de um banco de dados em núltiplas arquivos.
+
+PRIMARY:  É o grupo de arquivos padrão criado automaticamente quando um banco 
+de dados é criado. Ele contém o arquivo MDF principal e pode conter também outros 
+arquivos secundários (NDF). Se você não especificar outro grupo de arquivos, os 
+objetos do banco de dados serão armazenados no PRIMARY.
+
+Grupos de Arquivos Secundários: Você pode criar grupos de arquivos adicionais para 
+armazenar dados específicos ou distribuir o I/O de forma mais eficiente. Eles podem
+conter arquivos NDF (Secondary Data Files).

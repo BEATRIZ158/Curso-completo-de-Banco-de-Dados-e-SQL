@@ -11,11 +11,13 @@ O HD Sata é uma agulha que fica lendo o disco, isso reduz a velocidade de grava
 leitura de dados por conta dassa disputa com o SO.
 O recomendado é separar.
 
-MDF -> Master Data File (Arquivo Master de Dados)
-Armazena Dados
+MDF -> (Master Data File): É o arquivo principal do banco de dados, onde são armazenados 
+os dados e objetos do banco, como tabelas e índices. Cada banco de dados tem um único 
+arquivo MDF.
 
-LDF -> Log Data File
-Armazena Logs
+LDF -> (Log Data File): É o arquivo de log de transações. Ele registra todas as modificações 
+feitas no banco de dados e é crucial para a recuperação de dados em caso de falhas. Um banco 
+de dados pode ter um ou mais arquivos LDF.
 
 Quando criamos um banco de dados padrão, ou seja sem mecher nas 
 configuração, ele cria por padrão o MDF e LDF, sempre(Default)!
