@@ -1,0 +1,74 @@
+/* TRIGGERS */
+
+CREATE TABLE PRODUTOS(
+    IDPRODUTO INT IDENTITY PRIMARY KEY,
+    NOME VARCHAR(50) NOT NULL,
+    CATEGORIA VARCHAR(30) NOT NULL,
+    PRECO NUMERIC(10, 2) NOT NULL
+)
+GO
+
+CREATE TABLE HISTORICO(
+    IDOPERACAO INT PRIMARY KEY IDENTITY,
+    PRODUTO VARCHAR(50) NOT NULL,
+    CATEGORIA VARCHAR(30) NOT NULL,
+    PRECOANTIGO NUMERIC(10, 2) NOT NULL,
+    PRECONOVO NUMERIC(10, 2) NOT NULL,
+    DATA DATETIME,
+    USUARIO VARCHAR(30),
+    MENSAGEM VARCHAR(100)
+)
+GO
+
+INSERT INTO PRODUTOS VALUES('LIVRO SQL SERVER','LIVROS',98.00)
+INSERT INTO PRODUTOS VALUES('LIVRO ORACLE','LIVROS',50.00)
+INSERT INTO PRODUTOS VALUES('LICENÇA POWERCENTER','SOFTWARES',45000.00)
+INSERT INTO PRODUTOS VALUES('NOTEBOOK I7','COMPUTADORES',3150.00)
+INSERT INTO PRODUTOS VALUES('LIVRO BUSINESS INTELLIGENCE','LIVROS',90.00)
+GO
+
+SELECT * FROM PRODUTOS
+SELECT * FROM HISTORICO
+GO
+
+/* VERIFICANDO O USUÁRIO */
+
+SELECT SUSER_NAME()
+GO
+
+/* TRIGGER DE DADO - DATA MANIPULATION LANGUAGE 
+Tudo que é criado no SQL Server, como um banco por exemplo
+pode logar com a autenticação do Windows ou do Usuário
+Quando Logo com o Usuário do Windows ele pega o usuário
+E quando logo com o Usuário do SQL Server o usuário está
+dentro do Banco
+
+DBO é um SCHEMA, que é um Divisor Lógico de Banco de Dados
+Tudo que se cria dentro do SQL Server tem que ter um Dono
+Se não diz quem é o Dono ele vai para o DBO (Database Owner)
+
+Schemas são como Pastinhas dentro do Banco 
+Exemplo: 
+
+Se eu criar uma TABELA:
+CREATE TABLE 
+MKT.CAMPANHAS
+
+Essa tabela iria para dentro do Schema de MKT, posso autorizar
+para um usuário no Schema Inteiro, que tem acesso a tudo dentro
+do Schema*/
+
+CREATE TRIGGER TRG_ATUALIZA_PRECO
+ON DBO.PRODUTOS
+FOR UPDATE
+AS 
+    DECLARE @IDPRODUTO INT
+    DECLARE @PRODUTO VARCHAR(30)
+    DECLARE @CATEGORIA VARCHAR(10)
+    DECLARE @PRECO NUMERIC(10,2)
+    DECLARE @PRECONOVO NUMERIC(10,2)
+    DECLARE @DATA DATETIME
+    DECLARE @USUARIO VARCHAR(30)
+    DECLARE @ACAO VARCHAR(100)
+    
+    
