@@ -47,7 +47,12 @@ DBO é um SCHEMA, que é um Divisor Lógico de Banco de Dados
 Tudo que se cria dentro do SQL Server tem que ter um Dono
 Se não diz quem é o Dono ele vai para o DBO (Database Owner)
 
-Schemas são como Pastinhas dentro do Banco 
+No SQL Server, um schema é um contêiner lógico que agrupa 
+objetos de banco de dados, como tabelas, visualizações, 
+procedimentos armazenados, etc. Ele atua como uma "pasta" 
+ou uma "espaço de nomes" que organiza e protege os objetos 
+no banco de dados.
+
 Exemplo: 
 
 Se eu criar uma TABELA:
