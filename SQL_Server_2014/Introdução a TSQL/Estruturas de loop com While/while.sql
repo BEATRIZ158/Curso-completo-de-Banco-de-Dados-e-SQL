@@ -1,0 +1,26 @@
+/* LOOPS WHILE */
+
+DECLARE
+    @I INT = 1
+BEGIN
+    WHILE(@I < 15)
+    BEGIN
+        PRINT 'VALOR DE @I = ' + CAST(@I AS VARCHAR)
+    END
+END
+GO
+
+DECLARE 
+    @CONTADOR INT = 1,
+    @SOMA INT = 0
+
+BEGIN
+    WHILE @CONTADOR <= 10
+    BEGIN
+        SET @SOMA = @SOMA + @CONTADOR
+        SET @CONTADOR = @CONTADOR + 1
+    END
+END
+
+SELECT @SOMA AS RESULTADO
+GO
