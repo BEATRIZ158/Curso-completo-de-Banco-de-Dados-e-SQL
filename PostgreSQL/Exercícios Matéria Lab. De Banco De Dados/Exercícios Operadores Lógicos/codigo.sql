@@ -48,3 +48,11 @@ WHERE salario_fixo BETWEEN 1000 AND 3000;
 SELECT nome_vendedor 
 FROM vendedor 
 WHERE nome_vendedor LIKE 'J%';
+
+-- Testando ILIKE
+
+INSERT INTO vendedor VALUES (120,'josé',3130.00,'C');
+
+SELECT nome_vendedor 
+FROM vendedor 
+WHERE nome_vendedor ILIKE 'J%';
