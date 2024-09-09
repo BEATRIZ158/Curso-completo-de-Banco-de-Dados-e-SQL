@@ -1,20 +1,42 @@
--- 10) Liste o nome do vendedor e a faixa de comissão dos vendedores que possuem um salário fixo maior que R$4.000.
+-- 19) Liste o nome do vendedor e a faixa de comissão dos vendedores que possuem um salário fixo maior que R$4.000.
 
 SELECT nome_vendedor, faixa_comissao, salario_fixo
 FROM vendedor
 WHERE salario_fixo > 4000;
 
--- 11) Selecione os produtos cuja a unidade do produto seja igual a KG.
+-- 20) Selecione os produtos cuja a unidade do produto seja igual a KG.
 
 SELECT descricao_produto AS "Nome do produto", unidade AS "Unidade"
 FROM produto
 WHERE unidade = "kg"; 
 
--- 12) Faça uma consulta que mostre o nome do cliente, a cidade e o estado quando o Estado for igual a SP ou cidade igual a "Londrina" da tabela cliente
+-- 21) Faça uma consulta que mostre o nome do cliente, a cidade e o estado quando o Estado for igual a SP ou cidade igual a "Londrina" da tabela cliente
 
 SELECT nome_cliente, cidade, uf
 FROM cliente
 WHERE estado = 'SP' OR cidade = 'Londrina';
+
+-- 22) Selecione os registros de clientes cujo os nomes contém as letras 'IO"
+
+SELECT nome_cliente AS "Nome do Cliente"
+FROM cliente
+WHERE nome_cliente ILIKE '%io%';
+
+-- 23) Localize os vendedores que não possuem faixa de comissão
+
+SELECT nome_vendedor AS "Nome do Vendedor", faixa_comissao AS "Faixa de Comissão"
+FROM vendedor
+WHERE faixa_comissao IS NULL;
+
+SELECT nome_vendedor AS "Nome do Vendedor", faixa_comissao AS "Faixa de Comissão"
+FROM vendedor
+WHERE faixa_comissao IS NOT NULL; 
+
+-- 24) Listem os clientes que possuem inscrição estadual
+
+SELECT nome_cliente AS "Noome do Cliente", ie AS "Inscrição Estadual"
+FROM cliente
+WHERE ie IS NOT NULL;
 
 -- Atividade FORMS
 
