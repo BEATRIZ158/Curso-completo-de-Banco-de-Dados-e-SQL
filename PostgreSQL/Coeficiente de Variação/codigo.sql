@@ -10,7 +10,8 @@ SELECT MAQUINA,
     ROUND(VAR_POP(QTD), 2) AS "Variância",
     ROUND(STDDEV_POP(QTD),2) AS "Desvio Padrão",
     ROUND(MEDIAN(QTD),2) AS "Mediana",
-    ROUND((STDDEV_POP(QTD) / AVG(QTD)) * 100,2) AS "Coeff Variação"
+    ROUND((STDDEV_POP(QTD) / AVG(QTD)) * 100,2) AS "Coeff Variação",
+    MODE() WITHIN GROUP (ORDER BY QTD) AS "Moda"
     FROM MAQUINAS
     GROUP BY MAQUINA
     ORDER BY 1;
