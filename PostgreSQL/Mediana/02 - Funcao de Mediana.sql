@@ -28,8 +28,7 @@ CREATE AGGREGATE median(NUMERIC) (
   STYPE=NUMERIC[],
   FINALFUNC=_final_median,
   INITCOND='{}'
-);
-									 
+);	 
 SELECT MEDIAN(QTD) AS MEDIANA
 FROM MAQUINAS;
 
