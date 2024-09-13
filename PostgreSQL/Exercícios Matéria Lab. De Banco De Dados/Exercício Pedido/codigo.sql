@@ -52,7 +52,6 @@ create table item_do_pedido
   constraint fk_codigo_produto foreign key (codigo_produto) references produto
 );
 
-
 /*-- INSERINDO DADOS NAS TABELAS --*/	
 
 
