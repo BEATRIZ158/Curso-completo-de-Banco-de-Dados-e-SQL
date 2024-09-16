@@ -488,7 +488,12 @@ SELECT MAX(IDLOCACAO) AS RELATORIO, (SELECT MAX(IDLOCACAO) FROM LOCACAO) AS LOCA
 FROM RELATORIO_LOCADORA;					
 					
 /* VAMOS DEIXAR ESSE PROCEDIMENTO AUTOMATICO POR MEIO
-DE UMA TRIGGER */
+DE UMA TRIGGER 
+
+TRIGGER no PostgreSQL -> Tenho uma tabela, crio uma Function(Bloco de programação) que faz alguma coisa
+ai crio uma Trigger que fica olhando para a tabela. Mas ao acontecer algo na tabela, a Trigger chama a Function
+,ela não é executada, ela é somente o gatilho que chama a função, ela depende de uma ação para ser executada!
+*/
 
 CREATE OR REPLACE FUNCTION ATUALIZA_REL()
 RETURNS TRIGGER AS $$
