@@ -127,3 +127,79 @@ WHERE codigo_produto = 77;
 SELECT COUNT(*)
 FROM produto
 WHERE val_unit < 2.00;
+
+-- 37) Liste a quantide de clientes que cada estado contém
+
+SELECT COUNT(*) AS "Total", uf AS "Estado"
+FROM cliente
+GROUP BY uf;
+
+-- 38) Selecione da tabela item_do_pedido o campo numero do pedido quando a quantidade for maior ou igaul a 30 e eliminar as linhas duplicadas
+
+SELECT num_pedido AS "Número Pedido", COUNT(num_pedido) FILTER(WHERE quantidade >= 30)  AS "Quantidade"
+FROM item_do_pedido
+GROUP BY num_pedido;
+
+SELECT num_pedido, COUNT(num_pedido) AS "Quantidade"
+FROM item_do_pedido
+WHERE quantidade >= 30
+GROUP BY num_pedido;
+
+-- 39) Selecione os campos número dos pedidos e prazo de entrega de todos os pedidos que possuem o prazo de entrega 
+-- que esteja entre 15 a 25 dias.
+SELECT num_pedido AS "Número do pedido", prazo_entrega AS "Prazo de entrega"
+FROM pedido
+WHERE prazo_entrega BETWEEN 15 AND 25;
+
+-- 40) Liste a quantidade de pedidos que tem o prazo de entrega maior que 7, agrupados pelo código do vendedor
+
+SELECT COUNT(num_pedido) AS "Total", prazo_entrega AS "Prazo de entrega"
+FROM pedido
+WHERE prazo_entrega > 7
+GROUP BY prazo_entrega; 
+-- Ou
+SELECT COUNT(num_pedido) AS "Total"
+FROM pedido
+WHERE prazo_entrega > 7; 
+
+
+-- 41) Exiba a quantidade de clientes que cada estado contém, menos os clientes do estado de SP
+
+SELECT COUNT(codigo_cliente), uf AS "Estado"
+FROM cliente
+WHERE uf != 'SP'
+GROUP BY uf;
+-- Ou
+SELECT COUNT(*), uf AS "Estado"
+FROM cliente
+WHERE uf != 'SP'
+GROUP BY uf;
+
+-- 42) Selecione os pedidos que têm mais do que 3 produtos na 
+tabela item do pedido
+
+SELECT COUNT(codigo_produto) AS "Total Produtos", num_pedido
+FROM item_do_pedido
+GROUP BY num_pedido
+HAVING (COUNT(*)> 3);
+
+-- 43) Liste da tabela item do pedido os produtos que contenha a soma das quantidade maior igual a 50
+
+SELECT     codigo_produto, SUM(quantidade) AS Quatidade
+FROM         Item_do_Pedido
+GROUP BY codigo_produto
+HAVING      (SUM(quantidade) >= 50)
+
+-- 44) Mostre os produtos cuja média do valor unitário agrupados pela unidade seja menor que R$1,50
+
+SELECT     unidade, AVG(val_unit) AS “Média”
+FROM         Produto
+GROUP BY unidade
+HAVING      (AVG(val_unit) < 1.5)
+
+-- 45) Selecione o nome e a cidade dos clientes que possui o pedido com o prazo de entrega superior a 25 dias
+SELECT C.nome_cliente, C.cidade
+FROM cliente C
+INNER JOIN pedido P
+ON C.codigo_cliente = P.codigo_cliente
+WHERE P.prazo_entrega > 25;
