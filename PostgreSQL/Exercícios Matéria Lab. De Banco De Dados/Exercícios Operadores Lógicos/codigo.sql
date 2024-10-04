@@ -197,9 +197,86 @@ FROM         Produto
 GROUP BY unidade
 HAVING      (AVG(val_unit) < 1.5)
 
--- 45) Selecione o nome e a cidade dos clientes que possui o pedido com o prazo de entrega superior a 25 dias
-SELECT C.nome_cliente, C.cidade
+-- 45) Selecione o nome e a cidade dos clientes que possuem pedido com prazo de entrega maior do que 25 dias
+ 
+-- Usando INNER JOIN
+
+SELECT C.nome_cliente, C.cidade, P.prazo_entrega
+FROM cliente C
+INNER JOIN pedido p
+ON C.codigo_cliente = P.codigo_cliente
+WHERE P.prazo_entrega > 25;
+ 
+-- 46) Apresente a descrição, a unidade e a quantidade dos produtos pedidos que possuem a quantidade maior do que 40
+
+-- Usando INNER JOIN
+SELECT P.descricao_produto, P.unidade, I.quantidade
+FROM produto P
+INNER JOIN item_do_pedido I
+ON P.codigo_produto = I.codigo_produto
+WHERE I.quantidade > 40;
+SELECT P.descricao_produto, P.unidade, I.quantidade
+FROM produto P, item_do_pedido I
+WHERE P.codigo_produto = I.codigo_produto
+AND I.quantidade > 40;
+ 
+-- 47) Encontre nome dos clientes atendidos pelo vendedor João
+
+-- Usando INNER JOIN
+SELECT DISTINCT C.nome_cliente, V.nome_vendedor
 FROM cliente C
 INNER JOIN pedido P
 ON C.codigo_cliente = P.codigo_cliente
-WHERE P.prazo_entrega > 25;
+INNER JOIN vendedor V
+ON P.codigo_vendedor = V.codigo_vendedor
+WHERE V.nome_vendedor = 'João';
+ 
+-- Sem
+
+SELECT DISTINCT C.nome_cliente, V.nome_vendedor
+FROM cliente C, pedido P, vendedor V
+WHERE C.codigo_cliente = P.codigo_cliente
+AND P.codigo_vendedor = V.codigo_vendedor
+AND V.nome_vendedor = 'João';
+ 
+-- 48) Exiba os nomes dos vendedor que atenderam a cliente Ana de código 720
+ 
+SELECT DISTINCT V.nome_vendedor, C.nome_cliente
+FROM cliente C
+INNER JOIN pedido P
+ON C.codigo_cliente = P.codigo_cliente
+INNER JOIN vendedor V
+ON P.codigo_vendedor = V.codigo_vendedor
+WHERE P.codigo_cliente = 720;
+SELECT DISTINCT V.nome_vendedor, C.nome_cliente
+FROM cliente C, pedido P, vendedor V
+WHERE C.codigo_cliente = P.codigo_cliente
+AND P.codigo_vendedor = V.codigo_vendedor
+AND P.codigo_cliente = 720;
+ 
+-- 49) Liste os clientes e seus respectivos prazos de entrega ordenados pelo nome do cliente em ordem decrescente
+ 
+SELECT C.nome_cliente, P.prazo_entrega
+FROM cliente C
+INNER JOIN pedido P
+ON C.codigo_cliente = P.codigo_cliente
+ORDER BY C.nome_cliente DESC;
+
+-- 50) Mostre os vendedores (Ordenados) que emitiram pedidos com prazos superiores a 15 dias e tenham salários iguais ou superiores a R$1000,00
+ 
+SELECT V.nome_vendedor, P.prazo_entrega, V.salario_fixo
+FROM vendedor V
+INNER JOIN pedido P
+ON P.codigo_vendedor = V.codigo_vendedor
+WHERE P.prazo_entrega > 15 AND V.salario_fixo >= 1000.00
+ORDER BY V.nome_vendedor;
+
+-- 51) Quais clientes tem prazo de entrega superior a 15 dias e pertencem aos estados de SP ou RJ?
+
+SELECT C.nome_cliente AS "Nome do Cliente", P.prazo_entrega AS "Prazo de entrega", C.uf AS "Estado"
+FROM cliente C 
+INNER JOIN pedido P 
+ON C.codigo_cliente = P.codigo_cliente
+WHERE P.prazo_entrega > 15 AND (C.uf = 'SP' OR C.uf = 'RJ')
+ORDER BY C.uf;
+
