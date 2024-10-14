@@ -1,0 +1,46 @@
+**Segmentos**
+
+- Sãos os objetos dos bancos de dados Oracle, qualquer objeto criado no banco 
+
+Tabelas - Índices - Views - Procedures - Function
+
+Toda a unidade lógica ocupa um espaço físico, ou seja gera um espaço em um HD por exemplo,
+
+Como os segmentos são armazenados?
+
+São armazenados dentro de Datablocks - Unidade mínima de armazenamentos (Blocos de Dados)
+os blocos são sempre compostos por um cabeçalho (Header), um espaço vasio  e dados. Porque quando
+se cria um Datablock, ele começa vasio, mas ocupa um espaço no HD (2kb, 4kb, 8kb, 16kb). 
+O cabeçalho é o endereço do próximo bloco onde este dado vai continuar.
+O tamanho depende muito da proposta do banco, pode ser um banco:
+
+LTP, bancos transacionais: INSERT, DELETE ou UPDATE -> Recomendado blocos menores: como 4kb ou 2kb
+Banco OLAP -> Consulta -> SELECT -> Blocos maiores: 16kb ou 32kb
+
+! 8kb é padrão, é híbrido, atende as duas características !
+
+Quanto maior um bloco, leitura é mais rapida e quanto menor, a gravação é mais rápida!
+
+Extents - Tamanho
+
+O conjunto de DATABLOCKS forma uma EXTENT, ou seja, ocupa um tamanho (extensão).
+
+Se eu tenho um bloco de 8k + um bloco de 8K + um bloco de 8k, meu EXTENT tem 24k.
+
+Quanto ao armazenamento, os segmentos formam extensões, que não são necessariamente contiguas, mas
+os blocos de dados que compõem uma extensão, são contíguos.
+
+1 extensão é o tamanho de um objeto 
+1 tabela é um segmento, a unidade de armazenamento dessa tabela(Forma o Datablocks) são contiguas,
+um ao lado do outro, ao criar a tabela todos so Datablocks são contíguos (DB,DB,DB,DB), os segmentos
+formam extensões que não são necessariamente contiguas.
+
+Datablocks - Blocos no disco
+Segmentos - Objetos do banco de dados
+Extents - Tamanho ocupado pelos segmentos
+
+Ao criar uma tabela (Segment), ela ocupa Extents, que são compostos por Datablocks, ocupando espaço
+no disco.
+
+Tenho uma tabela chamada Cliente, essa tabela é armazenada encima de blocos no disco, que são os Datablocks,
+estes Datablocks juntos formam um Extent, uma extensão que ocupa um dado tamanho.
