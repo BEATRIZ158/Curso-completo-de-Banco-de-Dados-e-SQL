@@ -340,4 +340,47 @@ WHERE I.quantidade =
     FROM item_do_pedido
 )
 
--- 60) 
+-- 61) Crie uma VIEW que mostre o código e o nome dos clientes que moram nos estados SP, RJ, MS
+
+CREATE VIEW exercico61
+AS
+SELECT nome_cliente, codigo_cliente, cidade
+FROM cliente
+WHERE uf in ('SP', 'RJ', 'MS');
+
+--Chamando a VIEW
+SELECT *
+FROM exercico61;
+
+-- 62) Crie uma VIEW que selecione todos os numeros dos pedidos, codigo_cliente, prazo_entrega dos vendedores que tenham o nome João que possui o código 11
+
+CREATE VIEW exercicio62
+AS
+SELECT P.num_pedido, P.codigo_cliente, P.prazo_entrega, V.nome_vendedor
+FROM pedido P
+INNER JOIN vendedor V
+ON P.codigo_vendedor = V.codigo_vendedor
+WHERE P.codigo_vendedor = 11;
+
+-- Ou
+
+CREATE VIEW exercicio62
+AS
+SELECT P.num_pedido, P.codigo_cliente, P.prazo_entrega, V.nome_vendedor
+FROM pedido P
+INNER JOIN vendedor V
+ON P.codigo_vendedor = V.codigo_vendedor
+WHERE V.nome_vendedor ILIKE ('João%');
+
+-- Ou
+
+CREATE VIEW exercicio62_1
+(numero, codigo, prazo) AS
+SELECT num_pedido, codigo_cliente, prazo_entrega
+FROM pedido P
+INNER JOIN vendedor V
+ON P.codigo_vendedor = V.codigo_vendedor
+WHERE V.nome_vendedor ILIKE ('João%');
+
+SELECT *
+FROM exercicio62_1;
