@@ -280,3 +280,64 @@ ON C.codigo_cliente = P.codigo_cliente
 WHERE P.prazo_entrega > 15 AND (C.uf = 'SP' OR C.uf = 'RJ')
 ORDER BY C.uf;
 
+-- 52) Selecione o nome dos clientes de qualquer pedido cujo o prazo de entrega seja maior que 25 dias. Resolva utilizando subconsultas
+
+SELECT C.nome_cliente AS "Nome do Cliente", P.prazo_entrega AS "Prazo de entrega"
+FROM cliente C, pedido P
+WHERE P.codigo_cliente
+IN
+(SELECT P.codigo_cliente
+FROM pedido P
+WHERE P.prazo_entrega > 25);
+
+--ou
+
+SELECT C.nome_cliente, P.prazo_entrega AS "Prazo de entraga"
+FROM cliente C, pedido P
+WHERE P.prazo_entrega > 25;
+
+-- 55) Liste os clientes que não fizeram nenhum pedido
+
+SELECT nome_cliente
+FROM cliente
+WHERE codigo_cliente NOT IN
+(
+    SELECT codigo_cliente
+    FROM pedido
+)
+
+-- 56) Selecione a descrição dos produtos que possuem o valor unitário abaixo da média
+
+SELECT descricao_produto, val_unit
+FROM produto
+WHERE (val_unit <
+(
+    SELECT AVG(val_unit)
+    FROM Produto
+));
+
+-- 57) Encontre os nomes dos clientes que possuem o prazo de entrega acima da média
+
+SELECT C.nome_cliente, P.prazo_entrega
+FROM cliente C 
+INNER JOIN pedido P
+ON C.codigo_cliente = P.codigo_cliente
+WHERE P.prazo_entrega > 
+(
+SELECT AVG(prazo_entrega)
+FROM pedido
+);
+
+-- 59) Selecione a descricao do produto que teve a maior quantidade de pedido
+
+SELECT P.descricao_produto
+FROM produto P
+INNER JOIN item_do_pedido I
+ON P.codigo_produto = I.codigo_produto
+WHERE I.quantidade =
+(
+    SELECT MAX(quantidade)
+    FROM item_do_pedido
+)
+
+-- 60) 
