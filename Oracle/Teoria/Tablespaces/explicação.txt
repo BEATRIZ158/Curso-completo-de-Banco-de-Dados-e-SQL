@@ -1,0 +1,16 @@
+TableSpace - TS 
+
+É lógica, mas é ligada a arquivos de dados que são os DBf's (DataBase Files), e a
+soma dos DBF's totaliza o tamanho da TableSpace.
+
+Posso ter uma TableSpace que é distribuida em 2 DBF's, o arquivo BC.DBF e EFG.DBF, cada
+um com 500mb por exemplo, sendo o total dela 1GB.
+
+Toda a tabela criada vai para um TableSpace, se não especificar ela vai para uma padrão.
+Ao criar uma tabela, eu aponto para uma TableSpace, não posso apontar para 2 TableSpace.
+Só existe em caso de tabela particionada, uma tabela na qual parte dos dados vão para uma TableSpace
+e outra para outra TableSpace.
+
+Comando de criação:
+
+CREATE TABLESPACE mkt;
