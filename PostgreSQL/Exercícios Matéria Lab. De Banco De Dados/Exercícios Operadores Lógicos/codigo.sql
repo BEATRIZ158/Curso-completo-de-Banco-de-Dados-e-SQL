@@ -410,3 +410,45 @@ GROUP BY numeroPedido;
 
 SELECT * 
 FROM exercicio67;
+
+-- 73) Crie uma função para retornar o núemro de vendedores cadastrados
+
+CREATE FUNCTION QUANTIDADE_VENDEDORES()
+RETURNS INT AS
+$$
+DECLARE 
+	quantidade INT;
+BEGIN
+	SELECT COUNT(*) INTO quantidade
+	FROM vendedor
+	RETURN quantidade;
+END;
+$$
+LANGUAGE PLPGSQL;
+
+SELECT *
+FROM QUANTIDADE_VENDEDORES();
+
+-- OU 
+
+SELECT QUANTIDADE_VENDEDORES();
+
+-- 74) Elabore um procedimento para retornar a quantidade de pedidos que um determinado vendedor participou
+
+CREATE FUNCTION Exercicio74(NOME VARCHAR)
+RETURNS INT AS
+$$
+DECLARE
+	quantidade INT;
+BEGIN
+	SELECT COUNT(P.num_pedido) INTO quantidade
+	FROM pedido P
+    INNER JOIN vendedor V 
+    ON P.codigo_vendedor = V.codigo_vendedor
+    WHERE nome_vendedor = NOME;
+	RETURN quantidade;
+END;
+$$
+LANGUAGE PLPGSQL;
+
+SELECT * FROM Exercicio74('João');
