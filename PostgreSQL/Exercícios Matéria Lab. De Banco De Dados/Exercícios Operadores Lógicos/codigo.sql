@@ -372,6 +372,9 @@ INNER JOIN vendedor V
 ON P.codigo_vendedor = V.codigo_vendedor
 WHERE V.nome_vendedor ILIKE ('João%');
 
+SELECT *
+FROM exercicio62;
+
 -- Ou
 
 CREATE VIEW exercicio62_1
@@ -384,3 +387,26 @@ WHERE V.nome_vendedor ILIKE ('João%');
 
 SELECT *
 FROM exercicio62_1;
+
+-- 66) Faça uma View que contenha o número do pedido, código e descrição do produto, quantidade, valor unitário e o total (valor unitário x quantidade)
+
+CREATE VIEW exercicio66
+(numeroPedido, codigo, descricao, quantidade, valorUni, total) AS
+SELECT I.num_pedido, P.codigo_produto, P.descricao_produto, I.quantidade, P.val_unit, P.val_unit * I.quantidade AS "Total"
+FROM item_do_pedido I
+INNER JOIN produto P
+ON I.codigo_produto = P.codigo_produto;
+
+SELECT *
+FROM exercicio66;
+
+-- 67) Tendo referência ao exercício anterior, crie uma visualização que mostre a soma total de cada pedido
+
+CREATE VIEW exercicio67
+(numeroPedido, SomaTotal) AS
+SELECT numeroPedido, SUM(total)
+FROM exercicio66
+GROUP BY numeroPedido;
+
+SELECT * 
+FROM exercicio67;
