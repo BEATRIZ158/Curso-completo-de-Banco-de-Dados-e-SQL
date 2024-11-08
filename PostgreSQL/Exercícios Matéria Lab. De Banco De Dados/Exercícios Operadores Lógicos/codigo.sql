@@ -263,7 +263,7 @@ ON C.codigo_cliente = P.codigo_cliente
 ORDER BY C.nome_cliente DESC;
 
 -- 50) Mostre os vendedores (Ordenados) que emitiram pedidos com prazos superiores a 15 dias e tenham salários iguais ou superiores a R$1000,00
- 
+
 SELECT V.nome_vendedor, P.prazo_entrega, V.salario_fixo
 FROM vendedor V
 INNER JOIN pedido P
@@ -452,3 +452,138 @@ $$
 LANGUAGE PLPGSQL;
 
 SELECT * FROM Exercicio74('João');
+
+--Para realizar alguma alteração na FUNCTION, utilize OR REPLACE
+CREATE OR REPLACE FUNCTION Exercicio74(NOME VARCHAR)
+RETURNS INT AS
+$$
+DECLARE
+	quantidade INT;
+BEGIN
+	SELECT COUNT(P.num_pedido) INTO quantidade
+	FROM vendedor V
+    INNER JOIN pedido P
+    ON V.codigo_vendedor = P.codigo_vendedor
+    WHERE V.nome_vendedor = NOME;
+	RETURN quantidade;
+END;
+$$
+LANGUAGE PLPGSQL;
+
+-- 75) Faça um procedimento que mostre os vendedores que atenderam um cliente, cujo seu nome é passado por parâmetro
+
+-- Indica que a FUNCTION retorna um conjunto de registros RECORD, cada registro é uma linha com dados dos vendedores
+-- SETOF sigifica que a função retornará várias linhas, uma coleção de registros
+-- A variável reg do tipo RECORD, usada para armazenar cada linha de resultado da consulta SQL
+-- RECORD é um tipo genérico que pode armazenar diferentes tipos de dados
+-- FOR reg IN ... LOPP ... END LOOP, é um laço FOR que percorre os resultados da consulta SQL, 
+-- para cada linha que a consulta retorna, a linha é armazenada em reg
+-- LOOP ... END LOOP, executa o código dentro dele para cada linha
+-- RETURN NEXT reg, retorna a linha atual armazenada em reg como parte do conjunto
+
+CREATE OR REPLACE FUNCTION Exercicio75(nome_cli VARCHAR)
+RETURNS SETOF RECORD
+AS 
+$$
+DECLARE reg RECORD;
+BEGIN
+    FOR reg IN 
+        SELECT DISTINCT V.codigo_vendedor, V.nome_vendedor 
+        FROM vendedor V 
+        INNER JOIN pedido P 
+        ON V.codigo_vendedor = P.codigo_vendedor
+        INNER JOIN cliente C
+        ON P.codigo_cliente = C.codigo_cliente
+        WHERE C.nome_cliente = nome_cli
+    LOOP
+        RETURN NEXT reg;
+    END LOOP;
+	RETURN;
+END;
+$$
+LANGUAGE PLPGSQL;
+
+SELECT * 
+FROM Exercicio75('Ana') AS (codigo INTEGER, nome VARCHAR);
+
+-- 76) Crie um procedimento que retorne todos os códigos, nomes e unidades dos produtos cadastrados
+
+CREATE OR REPLACE FUNCTION Exercicio76()
+RETURNS TABLE (codigo_produto INT, descricao_produto VARCHAR, unidade VARCHAR)
+AS 
+$$
+BEGIN
+    RETURN QUERY 
+        SELECT DISTINCT codigo_produto, descricao_produto, unidade
+        FROM produto;
+END;
+$$
+LANGUAGE PLPGSQL;
+
+SELECT * 
+FROM Exercicio76();
+
+-- ou
+
+CREATE OR REPLACE FUNCTION Exercicio76()
+RETURNS SETOF RECORD
+AS
+$$
+DECLARE reg RECORD;
+BEGIN
+    FOR reg IN 
+        SELECT codigo_produto, descricao_produto, unidade
+        FROM produto
+    LOOP
+        RETURN NEXT reg;
+    END LOOP; 
+    RETURN;
+END;
+$$
+LANGUAGE PLPGSQL;
+
+SELECT * 
+FROM exercicio76() AS (codigo INT, nome VARCHAR, unidade CHAR(3));
+
+-- 82) Desenvolva uma Trigger que ao ser excluído um registro da tabela produto, apareça uma mensagem "Produtos Excluídos com Sucesso!"
+
+CREATE OR REPLACE FUNCTION Mensagem_delete()
+RETURNS TRIGGER AS  
+$$
+BEGIN
+    RAISE NOTICE 'Produtos Excluídos com Sucesso';
+    RETURN OLD;
+END;
+$$
+LANGUAGE PLPGSQL;
+
+CREATE OR REPLACE TRIGGER RetornaMensagem
+AFTER DELETE 
+ON produto 
+FOR EACH ROW
+EXECUTE PROCEDURE Mensagem_delete();
+
+DELETE FROM produto WHERE codigo_produto = 30;
+
+-- 83) Crie uma Trigger que ao INSERIR ou ALTERAR um registro da tabela ITEM DO PEDIDO, apareça uma mensagem "Itens do Pedido alterado com sucesso!"
+
+CREATE OR REPLACE FUNCTION Mensagem_Update()
+RETURN TRIGGER AS 
+$$
+BEGIN
+    RAISE NOTICE 'Iten do Pedido alterado com sucesso';
+    RETURN NEW;
+END; 
+$$
+LANGUAGE PLPGSQL;
+
+CREATE OR REPLACE TRIGGER RetornaMensagemUpdate
+AFTER INSERT OR UPDATE 
+ON item_do_pedido 
+FOR EACH ROW 
+EXECUTE PROCEDURE Mensagem_Update();
+
+UPDATE item_do_pedido 
+SET quantidade = 15
+WHERE num_pedido = 121
+AND codigo_produto = 77;
